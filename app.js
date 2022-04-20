@@ -265,13 +265,7 @@ app.post('/courses/bySubject',
 )
 
 app.get('/courses/show/:courseId',
-  // show all info about a course given its courseid
   async (req,res,next) => {
-    const {courseId} = req.params;
-    const course = await Course.findOne({_id:courseId})
-    res.locals.course = course
-    // res.locals.times2str = times2str
-    //res.json(course)
     res.render('course')
   }
 )
@@ -298,6 +292,23 @@ app.post('/courses/byInst',
     //res.json(courses)
     res.locals.courses = courses
     // res.locals.times2str = times2str
+    res.render('courselist')
+  }
+)
+
+app.get('/courses/byName',
+  async (req,res,next) => {
+    res.render('courselist')
+  }
+)
+
+app.post('/courses/byName', 
+  async (req,res,next) => {
+    const keyword = req.body.name;
+    const courses = 
+      await Course.find({"name" : {$regex : keyword}});
+    console.log(courses)
+    res.locals.courses = courses
     res.render('courselist')
   }
 )
@@ -376,7 +387,7 @@ app.use(function(err, req, res, next) {
 //  Starting up the server!
 // *********************************************************** //
 //Here we set the port to use between 1024 and 65535  (2^16-1)
-const port = "5000";
+const port = "5151";
 app.set("port", port);
 
 // and now we startup the server listening on that port
