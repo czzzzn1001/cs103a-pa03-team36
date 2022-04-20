@@ -256,7 +256,6 @@ app.post('/courses/bySubject',
   async (req,res,next) => {
     const {subject} = req.body;
     const courses = await Course.find({subject:subject,independent_study:false}).sort({term:1,num:1,section:1})
-    
     res.locals.courses = courses
     // res.locals.times2str = times2str
     //res.json(courses)
