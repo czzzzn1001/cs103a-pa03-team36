@@ -307,7 +307,6 @@ app.post('/courses/byName',
     const keyword = req.body.name;
     const courses = 
       await Course.find({"name" : {$regex : keyword}});
-    console.log(courses)
     res.locals.courses = courses
     res.render('courselist')
   }
