@@ -1,4 +1,4 @@
-<ul>
+<!-- <ul>
     <% for (course of courses){%>
         <li> 
             <a href="/schedule/remove/<%= course._id %>">X</a>
@@ -9,10 +9,31 @@
             
         </li>
     <% } %>
-</ul>
+</ul> -->
 
-<!--
-    <pre>
-        <%= JSON.stringify(courses,null,5) %>
-    </pre>
--->
+<h2>Course Schedule</h2>
+
+<% if (courses.length == 0){%>
+<hr />
+<p>There are no schedules.</p>
+<% } else if (courses.length > 0) { %>
+<div class="d-flex flex-wrap text-start overflow-scroll">
+  <% for (course of courses) {%>
+  <div class="p-3 m-3 w-25 border border-primary bg-warning border-3">
+    <b
+      ><%= course['subject'] %> <%= course.coursenum %> <%= course.term %>
+      <a href="/schedule/remove/<%= course._id %>">X</a>
+      <br />
+      <%= course.name %> </b
+    ><br />
+
+    <hr />
+    <%= course['instructor'][0] %>, <%= course['instructor'][1] %> <br />
+    <%= course['instructor'][2] %>
+  </div>
+  <%}%> <%}%>
+
+  <!-- <pre>
+     <%= JSON.stringify(courses,null,5) %>
+</pre> -->
+</div>
