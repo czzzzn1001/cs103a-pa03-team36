@@ -21,10 +21,16 @@
   <% for (course of courses) {%>
   <div class="p-3 m-4 w-25 border border-primary bg-warning border-3">
     <b
-      ><%= course['subject'] %> <%= course.coursenum %> <%= course.term %>
-      <a href="/schedule/remove/<%= course._id %>">X</a>
+      ><a href="/schedule/remove/<%= course._id %>">X</a><%= course['subject'] %> <%= course.coursenum %> <%= course.term %>
+
       <br />
-      <%= course.name %> </b
+      <%= course.name %> <br />
+      Times: <% for (time of course.strTimes){ %>
+
+        <%= time %><br>
+        
+        <% } %> 
+      </b
     ><br />
 
     <hr />
