@@ -258,9 +258,23 @@ app.post(
   }
 );
 
-app.get("/courses/show/:courseId", async (req, res, next) => {
-  res.render("course");
-});
+// app.get("/courses/show/:courseId", async (req, res, next) => {
+//   // res.locals.courseId = req.params.courseId;
+//   res.render("course");
+// });
+
+app.get(
+  "/courses/show/:courseId",
+  // show all info about a course given its courseid
+  async (req, res, next) => {
+    const { courseId } = req.params;
+    const course = await Course.findOne({ _id: courseId });
+    res.locals.course = course;
+    res.locals.times2str = times2str;
+    //res.json(course)
+    res.render("course");
+  }
+);
 
 app.get(
   "/courses/byInst/:email",
@@ -336,7 +350,7 @@ app.get(
         .sort((x) => x.term)
         .map((x) => x.courseId);
       res.locals.courses = await Course.find({ _id: { $in: courseIds } });
-      res.locals.times2str = times2str;
+
       res.render("schedule");
     } catch (e) {
       next(e);
